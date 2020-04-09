@@ -52,11 +52,9 @@ class ReaderView(ViewSet):
         Return:
             Response
         """
-        print("helloo")
         book = get_object_or_404(Book, pk=pk)
         reader = get_object_or_404(Reader, user=request.user)
         reader.books.remove(book)
-        print(reader.books, reader)
         serializer = ReaderSerializer(reader)
         return Response(data=serializer.data)
 
@@ -66,7 +64,7 @@ class ReaderView(ViewSet):
         Args:
             request: Request
             pk: PK of the book to be added
-            
+
         Return:
             Response
         """
