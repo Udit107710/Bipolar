@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: gunicorn -b 0.0.0.0:8000 Bipolar.wsgi
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+        - migrations
+    env_file:
+        - .env
+  migrations:
+    build: .
+    command: python manage.py migrate --noinput
+    volumes:
+        - .:/app
+    env_file:
+        - .env
